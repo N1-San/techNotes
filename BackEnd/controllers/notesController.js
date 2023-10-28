@@ -15,7 +15,7 @@ const getAllNotes = asyncHandler (async(req,res) =>{
     res.json(notesWithUser)
 })
 const createNewNote = asyncHandler (async(req,res) => {
-    const {user, title, text, completed} = req.body
+    const {user, title, text} = req.body
 
     if(!user || !title || !text){
         return res.status(400).json({message: 'All fields are required'})
@@ -57,13 +57,18 @@ const updateNote = asyncHandler (async(req,res) => {
 
     const updatedNote = await note.save()
 
-    res.json({message: `${updatedNote.title} updated`})
+    res.json(`'${updatedNote.title}' updated`)
 })
 
 const deleteNote = asyncHandler (async(req,res) => {
     const {id} = req.body
     if(!id){
-        return res.status({message: 'Note not found'})
+        return res.status(400).json({message: 'Note ID required'})
+    }
+    
+    const note = await Note.findById(id).exec()
+    if (!note) {
+        return res.status(400).json({ message: 'Note not found' })
     }
 
     const result = await note.deleteOne()
