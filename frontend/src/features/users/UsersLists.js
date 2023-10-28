@@ -7,11 +7,11 @@ const UsersLists = () => {
     isSuccess,
     isError,
     error,
-  } = useGetUsersQuery();
+  } = useGetUsersQuery()
 
-  let content;
+  let content
 
-  if (isLoading) content = <p>Loading...</p>;
+  if (isLoading) content = <p>Loading...</p>
 
   if (isError) {
     content = (
@@ -20,7 +20,7 @@ const UsersLists = () => {
   }
 
   if (isSuccess) {
-    const { ids } = users;
+    const { ids } = users
 
     const tableContent = ids?.length
       ? ids.map((userId) => <User key={userId} userId={userId} />)
@@ -43,10 +43,10 @@ const UsersLists = () => {
         </thead>
         <tbody>{tableContent}</tbody>
       </table>
-    );
+    )
   }
 
-  return content;
-};
+  return content
+}
 
-export default UsersLists;
+export default UsersLists
